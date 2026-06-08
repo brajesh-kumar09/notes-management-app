@@ -1,0 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+.authButtons {
+    font-family: "Black Ops One", system-ui;
+    background-color: #6cace4;
+    color: #f9f9f7;
+    border: 1px solid #6cace4;
+}
+
+.authButtons:hover {
+    color: #6cace4;
+    background-color: transparent;
+}
+
+.login, .register{
+    width: 325px;
+    margin-inline: auto;
+}
+.login input, .register input{
+    width: 300px;
+}
+
+.login form, .register form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}

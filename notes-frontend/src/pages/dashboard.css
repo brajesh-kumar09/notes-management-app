@@ -1,0 +1,110 @@
+.notesInputContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.delButton {
+  color: #d9534f;
+  border: 1px solid;
+  margin-left: 10px;
+}
+.delButton:hover{
+    background-color: #d9534f;
+    color: #f9f9f7;
+    border: 1px solid #d9534f;
+}
+
+.accDelButton{
+    color: #555;
+    border: 1px solid;
+    margin-left: 10px;
+}
+.logoutButton{
+    border: 1px solid;
+}
+
+.logoutButton:hover, .accDelButton:hover {
+    background-color: #555;
+    color: #f9f9f7;
+    border-color: #555;
+}
+
+.cancel{
+    color: #555;
+    border: 1px solid;
+    margin-left: 10px;
+}
+.cancel:hover{
+    color: green;
+}
+
+.submitButton {
+  background-color: #6cace4;
+  color: #f9f9f7;
+  border: 1px solid #6cace4;
+}
+
+.submitButton:hover{
+    background-color: #f9f9f7;
+    color: #6cace4;
+}
+
+.edit{
+    border: 1px solid #555;
+}
+.edit:hover{
+    background-color: #f9f9f7;
+}
+
+.notesContent, #delCnf{
+    text-align: left;
+    margin-bottom: 10px;
+}
+#searchBar{
+    margin-bottom: 10px;
+}
+#greet{
+    text-align: left;
+    margin-top: 5px;
+    color: #555;
+}
+
+.dashboard{
+    width: 325px;
+    margin-inline: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+.dashboard input, .dashboard textarea{
+    width: 300px;
+}
+.dashboard > * + * {
+  border-top: 1px solid #ccc;
+}
+.dashboard .d1{
+    align-self: flex-end;
+}
+
+.notesList> * + * {
+    margin-top: 5px;
+}
+.notesList>div{
+    border: 1px solid #ccc;
+    padding: 2.5px 7.5px 5px 7.5px;
+    border-radius: 6px;
+    background-color: #fff7e8;
+}
+.notesList>div h3{
+    font-weight: 400;
+    font-size: 17.5px;
+}
+.notesList>div p{
+    color: #555;
+    border: 1px solid #ccc;
+    background-color: #f9f9f7;
+    border-radius: 6px;
+    padding: 2.5px 5px;
+}

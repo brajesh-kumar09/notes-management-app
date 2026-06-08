@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { deleteUserAccount } from "../services/api";
+import "./dashboard.css"
 
 function DeleteAccount() {
     const navigate = useNavigate();
@@ -25,10 +26,10 @@ function DeleteAccount() {
 
     return (
         <div>
-            <p>Are you sure to DELETE your Notes Account?</p>
-            <button disabled={delMessage} onClick={handleDeleteAccount}>Delete my Account</button>
-            <button disabled={delMessage} onClick={() => navigate("/dashboard")}>Cancel</button>
-            {delMessage && <p style={{ color: 'green' }}>Account deletion successfull!</p>}
+            <p id="delCnf">Are you sure to DELETE your Notes Account?</p>
+            <button className="buttons delButton" disabled={delMessage} onClick={handleDeleteAccount}>Delete my Account</button>
+            <button className="buttons cancel" disabled={delMessage} onClick={() => navigate("/dashboard")}>Cancel</button>
+            {delMessage && <p className="UDmy" style={{ color: 'green' }}>Account deletion successfull!</p>}
         </div>
     )
 }

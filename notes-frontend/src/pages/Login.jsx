@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginUser } from "../services/api";
+import "./auth.css";
 
 function Login() {
     const [email, setEmail] = useState("");
@@ -18,6 +19,7 @@ function Login() {
             //Api call to login user
             const response = await loginUser({ email, password });
             localStorage.setItem("token", response.data.token);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
 
             setLoginMessage("Login successful! Redirecting...");
             setLoginMessageType("green");
@@ -34,21 +36,21 @@ function Login() {
     };
 
     return (
-        <div>
+        <div className="login">
             <h1>Login</h1>
             <form onSubmit={handleSubmit}>
                 <div>
-                    <h5>Email</h5>
-                    <input type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value); setLoginMessage(""); }} />
+                    <h3>Email</h3>
+                    <input name="emailId" type="email" placeholder="Email" value={email} onChange={(e) => { setEmail(e.target.value); setLoginMessage(""); }} />
                 </div>
                 <div>
-                    <h5>Password</h5>
-                    <input type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); setLoginMessage(""); }} />
+                    <h3>Password</h3>
+                    <input name="password" type="password" placeholder="Password" value={password} onChange={(e) => { setPassword(e.target.value); setLoginMessage(""); }} />
                 </div>
-                <button type="submit" disabled={loading || !email || !password}>Login</button>
+                <button className="buttons authButtons" type="submit" disabled={loading || !email || !password}>Login</button>
             </form>
-            <p style={{ color: loginMessageType }}>{loginMessage}</p>
-            <p>Don't have an account? <button disabled={loading} onClick={() => navigate("/register")}>Sign Up</button></p>
+            <p className="Umy" style={{ color: loginMessageType }}>{loginMessage}</p>
+            <p className="Umy">Don't have an account? <button className="navigateBtn" disabled={loading} onClick={() => navigate("/register")}>Sign Up</button></p>
         </div>
     );
 }

@@ -2,10 +2,11 @@ import { Navigate, Routes, Route } from "react-router-dom";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/Dashboard.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import CheckLogin from "./components/CheckLogin.jsx";
-import DeleteAccount from "./pages/DeleteAccount"
+import DeleteAccount from "./pages/DeleteAccount";
+import "./index.css";
 
 function App() {
   return (
