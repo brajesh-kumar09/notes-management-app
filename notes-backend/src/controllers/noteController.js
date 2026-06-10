@@ -5,9 +5,9 @@ const createNote = async (req, res) => {
         const { title, content } = req.body;
         const userId = req.user.userId;
 
-        if (!title?.trim() || !content?.trim()) {
+        if (!title?.trim() && !content?.trim()) {
             return res.status(400).json({
-                message: "Title and content can't be empty",
+                message: "Title or note is required",
             });
         }
 
@@ -84,9 +84,9 @@ const updateNote = async (req, res) => {
 
         const { title, content } = req.body;
 
-        if (!title?.trim() || !content?.trim()) {
+        if (!title?.trim() && !content?.trim()) {
             return res.status(400).json({
-                message: "Title and content can't be empty",
+                message: "Title or note required",
             });
         }
 

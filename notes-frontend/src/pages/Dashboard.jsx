@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import { getNotes, createNote, updateNote, deleteNote as deleteNoteApi } from "../services/api";
 import "./dashboard.css"
 
@@ -36,8 +38,7 @@ function Dashboard() {
         e.preventDefault();
 
         if (!title.trim() || !content.trim()) {
-            setDashboardType("orange");
-            setDashboardText("Title and content are required");
+            toast.warning("Title or note required");
             return;
         }
 
@@ -47,15 +48,11 @@ function Dashboard() {
             if (editingNoteId) {
                 //Api call to update note
                 await updateNote(editingNoteId, { title, content }, token);
-                setDashboardType("green");
-                setDashboardText("Note updated successfully!");
-                setTimeout(() => setDashboardText(""), 3000);
+                toast.success("Note updated successfully!", { autoClose: 1000 })
             } else {
                 //Api call to create note
                 await createNote({ title, content }, token);
-                setDashboardType("green");
-                setDashboardText("Note created successfully!");
-                setTimeout(() => setDashboardText(""), 3000);
+                toast.success("Note created successfully!", { autoClose: 1000 });
             }
 
             setTitle("");
@@ -64,9 +61,8 @@ function Dashboard() {
 
             fetchNotes();
         } catch (error) {
-            console.error(error);
-            setDashboardType("red");
-            setDashboardText("Error occurred while saving the note");
+            console.log(error);
+            toast.error(error.response.data.message);
         }
     };
 
@@ -80,9 +76,7 @@ function Dashboard() {
             const token = localStorage.getItem("token");
             //Api call to delete note
             await deleteNoteApi(id, token);
-            setDashboardType("gray");
-            setDashboardText("Note deleted successfully!");
-            setTimeout(() => setDashboardText(""), 3000);
+            toast.success("Note deleted successfully!", { autoClose: 1000 })
 
             fetchNotes();
         } catch (error) {
@@ -98,6 +92,7 @@ function Dashboard() {
         if (isLoggingOut) {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
+            toast.info("LoggedOut", { autoClose: 1000 })
             navigate("/login");
         } else {
             setIsLoggingOut(true);
@@ -117,11 +112,11 @@ function Dashboard() {
                 <form className="notesInputContainer" onSubmit={handleSubmit}>
                     <div className="subNotesInputContainer">
                         <h3>Title</h3>
-                        <input type="text" placeholder="Title" value={title} onChange={(e) => { setTitle(e.target.value); setDashboardText(""); }} />
+                        <input type="text" placeholder="Notes title" value={title} onChange={(e) => { setTitle(e.target.value); setDashboardText(""); }} />
                     </div>
                     <div className="subNotesInputContainer">
                         <h3>Note</h3>
-                        <textarea placeholder="Content" value={content} onChange={(e) => { setContent(e.target.value); setDashboardText(""); }} />
+                        <textarea placeholder="I'm .." value={content} onChange={(e) => { setContent(e.target.value); setDashboardText(""); }} />
                     </div>
                     <div>
                         <button className="buttons submitButton" type="submit">
@@ -142,7 +137,7 @@ function Dashboard() {
                 <div className="notesList">
                     {filteredNotes.length > 0 ? filteredNotes.map(note => (
                         <div key={note.id}>
-                            <h3>#{note.id}. {note.title}</h3>
+                            <h3><span id="notesSerial">#{note.id}.</span> {note.title}</h3>
                             <p className="notesContent">{note.content}</p>
                             <button className="buttons edit" onClick={() => {
                                 setEditingNoteId(note.id);
@@ -150,6 +145,7 @@ function Dashboard() {
                                 setContent(note.content);
                             }}>Edit</button>
                             <button className="buttons delButton" disabled={editingNoteId === note.id} onClick={() => deleteNote(note.id)}>Delete</button>
+                            <p className="noteDate">{note.created_at.split('T')[1].slice(0, 5)} {note.created_at.split('T')[0].split('-').reverse().join('-')}</p>
                         </div>
                     )) : <>
                         <h3>No notes found</h3>

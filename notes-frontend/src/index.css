@@ -25,13 +25,10 @@ p {
 .Umy{
     margin-top: 5px;
 }
-.UDmy{
-    margin-block: 5px;
-}
 
 body {
     background-color: #f9f9f7;
-    margin: 10px 20px;
+    margin: 10px 10px;
 }
 
 input,
@@ -46,6 +43,9 @@ input:focus,
 textarea:focus {
     outline: none;
 }
+input::placeholder, textarea::placeholder{
+    color: #ccc;
+}
 
 textarea {
     min-height: 70px;
@@ -58,6 +58,11 @@ textarea {
     border-radius: 5px;
     border: none;
     color: #6cace4;
+}
+
+.navigateBtn:disabled{
+    color: #ccc;
+    cursor: not-allowed;
 }
 
 .buttons {

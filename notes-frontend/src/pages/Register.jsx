@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../services/api";
+import { toast } from "react-toastify";
 import "./auth.css";
 
 function Register() {
-    const [name, setName] = useState("sfa");
+    const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [signUpMessage, setSignupMessage] = useState("");
-    const [signUpMessageType, setSignupMessageType] = useState("");
     const [isLoading, setIsLoading] = useState(false);
 
     const navigate = useNavigate();
@@ -22,14 +21,15 @@ function Register() {
             const response = await registerUser({ name, email, password });
             console.log(response.data);
 
-            setSignupMessage("Registration successful! Redirecting to login.");
-            setSignupMessageType("green");
+            toast.success("Registration successful! Redirecting to login.", { autoClose: 1000 });
             await new Promise(resolve => setTimeout(resolve, 1000));
+
             navigate("/login");
         } catch (error) {
             console.error(error);
-            setSignupMessage(error.response.data.message);
-            setSignupMessageType("orange");
+            toast.warning(error.response.data.message);
+        } finally {
+            setIsLoading(false)
         }
     };
 
@@ -51,8 +51,7 @@ function Register() {
                 </div>
                 <button className="buttons authButtons" disabled={!name || !email || !password || isLoading} type="submit">Sign Up</button>
             </form>
-            <p className="Umy" style={{ color: signUpMessageType }}>{signUpMessage}</p>
-            <p className="Umy">Already have an account? <button className="navigateBtn" disabled={signUpMessageType==='green'} onClick={() => navigate("/login")}>Login</button></p>
+            <p className="Umy">Already have an account? <button className="navigateBtn" disabled={isLoading} onClick={() => navigate("/login")}>Login</button></p>
         </div>
     );
 }
