@@ -12,8 +12,6 @@ function Dashboard() {
     const [content, setContent] = useState("");
     const [searchTerm, setSearchTerm] = useState("");
     const [editingNoteId, setEditingNoteId] = useState(null);
-    const [dashboardText, setDashboardText] = useState("");
-    const [dashboardType, setDashboardType] = useState("green");
     const [isLoggingOut, setIsLoggingOut] = useState(false);
 
     const navigate = useNavigate();
@@ -37,7 +35,7 @@ function Dashboard() {
     const handleSubmit = async (e) => {
         e.preventDefault();
 
-        if (!title.trim() || !content.trim()) {
+        if (!title.trim() && !content.trim()) {
             toast.warning("Title or note required");
             return;
         }
@@ -129,7 +127,6 @@ function Dashboard() {
                         }}>Cancel</button>}
                     </div>
                 </form>
-                {dashboardText && <p className="Umy" style={{ color: dashboardType }}>{dashboardText}</p>}
             </div>
             <div className="d3">
                 <h1>My Notes</h1>

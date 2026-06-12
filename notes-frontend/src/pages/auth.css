@@ -30,3 +30,9 @@
     align-items: center;
     gap: 10px;
 }
+
+.errorText {
+    height: 12.5px;
+    font-size: 10px;
+    color: red;
+}

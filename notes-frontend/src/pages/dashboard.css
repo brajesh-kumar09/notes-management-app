@@ -65,7 +65,6 @@
 
 .notesContent,
 #delCnf {
-    text-align: left;
     margin-bottom: 10px;
 }
 
@@ -75,7 +74,6 @@
 }
 
 #greet {
-    text-align: left;
     margin-top: 5px;
     color: #555;
 }

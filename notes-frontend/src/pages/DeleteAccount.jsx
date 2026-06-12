@@ -17,7 +17,7 @@ function DeleteAccount() {
             localStorage.removeItem("token");
             console.log(response?.data);
 
-            toast.success("Account deletion successfull!");
+            toast.success("Account deletion successfull!", {autoClose: 2500});
             await new Promise(resolve => setTimeout(resolve, 2000));
 
             navigate("/register");
