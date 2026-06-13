@@ -69,7 +69,7 @@
 }
 
 #searchBar {
-    margin-bottom: 10px;
+    margin-bottom: 5px;
     width: 328px;
 }
 
@@ -83,6 +83,7 @@
     border-bottom: 1px solid;
     border-radius: 5px;
     font-size: 15px;
+    font-weight: 400;
 }
 
 .dashboard {
@@ -124,7 +125,7 @@
 }
 
 .notesList>div h3 {
-    font-weight: 400;
+    font-weight: 500;
     font-size: 17px;
 }
 
@@ -141,5 +142,30 @@
     font-size: small;
     color: #ccc;
     display: inline-block;
-    margin-left: 95px;
+    margin-left: 15px;
+}
+
+.sortSelection {
+    margin-bottom: 10px;
+}
+
+.sortSelection select {
+    color: #555;
+    background-color: #f9f9f7;
+    border: 1px solid #b5b5b5;
+    border-radius: 6px;
+    padding: 4px 6px;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.sortSelection select:disabled {
+    cursor: default;
+}
+
+.sortSelection p {
+    display: inline-block;
+    margin-right: 10px;
+    font-size: 14px;
+    color: #555;
 }

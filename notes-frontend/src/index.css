@@ -21,7 +21,8 @@ h3 {
 p {
     font-family: "Roboto";
 }
-.Umy{
+
+.Umy {
     margin-top: 10px;
 }
 
@@ -35,14 +36,15 @@ textarea {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 6px;
-    transition: border-color 0.2s;
 }
 
-input:focus,
-textarea:focus {
-    outline: none;
+*:focus {
+    outline: 1px solid #6cace4;
+    outline-offset: 1px;
 }
-input::placeholder, textarea::placeholder{
+
+input::placeholder,
+textarea::placeholder {
     color: #ccc;
 }
 
@@ -51,7 +53,7 @@ textarea {
     resize: vertical;
 }
 
-.navigateBtn{
+.navigateBtn {
     padding: 2.5px 5px 5px;
     cursor: pointer;
     border-radius: 5px;
@@ -59,7 +61,7 @@ textarea {
     color: #6cace4;
 }
 
-.navigateBtn:disabled{
+.navigateBtn:disabled {
     color: #ccc;
     cursor: not-allowed;
 }

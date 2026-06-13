@@ -13,6 +13,7 @@ function Dashboard() {
     const [searchTerm, setSearchTerm] = useState("");
     const [editingNoteId, setEditingNoteId] = useState(null);
     const [isLoggingOut, setIsLoggingOut] = useState(false);
+    const [sortBy, setSortBy] = useState("default");
 
     const navigate = useNavigate();
 
@@ -86,6 +87,28 @@ function Dashboard() {
         note.title.toLowerCase().includes(searchTerm.toLowerCase()) || note.content.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
+    const sortedNotes = [...filteredNotes];
+    if (sortBy === "newest") {
+        sortedNotes.sort(
+            (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+        );
+    }
+    if (sortBy === "oldest") {
+        sortedNotes.sort(
+            (a, b) => new Date(a.updated_at) - new Date(b.updated_at)
+        );
+    }
+    if (sortBy === "az") {
+        sortedNotes.sort((a, b) =>
+            a.title.localeCompare(b.title)
+        );
+    }
+    if (sortBy === "za") {
+        sortedNotes.sort((a, b) =>
+            b.title.localeCompare(a.title)
+        );
+    }
+
     const handleLogout = () => {
         if (isLoggingOut) {
             localStorage.removeItem("token");
@@ -110,11 +133,11 @@ function Dashboard() {
                 <form className="notesInputContainer" onSubmit={handleSubmit}>
                     <div className="subNotesInputContainer">
                         <h3>Title</h3>
-                        <input type="text" placeholder="Notes title" value={title} onChange={(e) => { setTitle(e.target.value); setDashboardText(""); }} />
+                        <input type="text" placeholder="Notes title" value={title} onChange={(e) => setTitle(e.target.value)} />
                     </div>
                     <div className="subNotesInputContainer">
                         <h3>Note</h3>
-                        <textarea placeholder="I'm .." value={content} onChange={(e) => { setContent(e.target.value); setDashboardText(""); }} />
+                        <textarea placeholder="I'm .." value={content} onChange={(e) => setContent(e.target.value)} />
                     </div>
                     <div>
                         <button className="buttons submitButton" type="submit">
@@ -131,8 +154,18 @@ function Dashboard() {
             <div className="d3">
                 <h1>My Notes</h1>
                 <input id="searchBar" type="text" placeholder="🔍 Search notes..." disabled={!notes.length} value={searchTerm} onChange={(e) => setSearchTerm(e.target.value)} />
+                <div className="sortSelection">
+                    <p>Sort: </p>
+                    <select disabled={!notes.length} value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                        <option value="default">Recent Created</option>
+                        <option value="newest">Last Modified (Newest)</option>
+                        <option value="oldest">Last Modified (Oldest)</option>
+                        <option value="az">A → Z</option>
+                        <option value="za">Z → A</option>
+                    </select>
+                </div>
                 <div className="notesList">
-                    {filteredNotes.length > 0 ? filteredNotes.map(note => (
+                    {filteredNotes.length > 0 ? sortedNotes.map(note => (
                         <div key={note.id}>
                             <h3><span id="notesSerial">#{note.id}.</span> {note.title}</h3>
                             <p className="notesContent">{note.content}</p>
@@ -142,7 +175,13 @@ function Dashboard() {
                                 setContent(note.content);
                             }}>Edit</button>
                             <button className="buttons delButton" disabled={editingNoteId === note.id} onClick={() => deleteNote(note.id)}>Delete</button>
-                            <p className="noteDate">{note.created_at.split('T')[1].slice(0, 5)} {note.created_at.split('T')[0].split('-').reverse().join('-')}</p>
+                            <p className="noteDate">{note.updated_at !== note.created_at ? "Updated" : "Created"}: {new Date(note.updated_at).toLocaleString("en-IN", {
+                                day: "2-digit",
+                                month: "2-digit",
+                                year: "numeric",
+                                hour: "numeric",
+                                minute: "2-digit"
+                            })}</p>
                         </div>
                     )) : <>
                         <h3>No notes found</h3>
